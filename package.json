@@ -1,0 +1,55 @@
+{
+  "name": "failover-boundary",
+  "version": "1.0.0",
+  "description": "Decoupled, framework-agnostic resilient network failover engine with exponential backoff, jitter, token refresh deduplication, circuit breaking, and graceful UI fallback emitting.",
+  "keywords": [
+    "retry",
+    "failover",
+    "resilience",
+    "backoff",
+    "jitter",
+    "circuit-breaker",
+    "fallback",
+    "fetch",
+    "axios",
+    "trpc",
+    "network",
+    "typescript",
+    "zero-dependency"
+  ],
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/cjs/index.cjs",
+  "module": "./dist/esm/index.js",
+  "types": "./dist/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.cjs"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "sideEffects": false,
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "scripts": {
+    "clean": "node -e \"require('fs').rmSync('dist', { recursive: true, force: true })\"",
+    "build:esm": "tsc -p tsconfig.json",
+    "build:cjs": "tsc -p tsconfig.cjs.json && node scripts/convert-cjs-extensions.cjs",
+    "build:types": "tsc -p tsconfig.json --declaration --emitDeclarationOnly --declarationDir dist/types",
+    "build": "npm run clean && npm run build:esm && npm run build:cjs && npm run build:types",
+    "typecheck": "tsc --noEmit",
+    "test": "node --test tests/*.test.mjs",
+    "prepublishOnly": "npm run typecheck && npm run build && npm test"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.3"
+  }
+}
