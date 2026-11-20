@@ -202,3 +202,7 @@ npm test
 ## License
 
 MIT
+
+---
+
+<strong>A Sabtain Ali production</strong>
